@@ -127,7 +127,7 @@ class Login extends React.Component {
           <FormGroup label={tx('password')} placeholder={tx('password')} labelFor='mailPw'>
             {this.renderPasswordInput('showPasswordMail', 'mailPw')}
           </FormGroup>
-          <Button onClick={this.handleUISwitchStateProperty.bind(this, 'showAdvanced')}>
+          <Button id='showAdvancedButton' onClick={this.handleUISwitchStateProperty.bind(this, 'showAdvanced')}>
             {(showAdvanced ? '-' : '+') + ' ' + tx('menu_advanced') }
           </Button>
           <Collapse isOpen={showAdvanced}>
