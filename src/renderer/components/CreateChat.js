@@ -1,5 +1,6 @@
 const React = require('react')
 const { ipcRenderer } = require('electron')
+const ScreenContext = require('../contexts/ScreenContext')
 
 const {
   Alignment,
@@ -48,11 +49,11 @@ class CreateChat extends React.Component {
   }
 
   onCreateGroup () {
-    this.props.changeScreen('CreateGroup')
+    this.context.changeScreen('CreateGroup')
   }
 
   onCreateVerifiedGroup () {
-    this.props.changeScreen('CreateGroup', { verified: true })
+    this.context.changeScreen('CreateGroup', { verified: true })
   }
 
   onCreateContact () {
@@ -64,14 +65,14 @@ class CreateChat extends React.Component {
       }
     }
 
-    this.props.changeScreen('CreateContact', { onSubmit })
+    this.context.changeScreen('CreateContact', { onSubmit })
   }
 
   chooseContact (contact) {
     const tx = window.translate
     const chatId = ipcRenderer.sendSync('createChatByContactId', contact.id)
-    if (!chatId) return this.props.userFeedback({ type: 'error', text: tx('create_chat_error_desktop') })
-    this.props.changeScreen('ChatView', { chatId })
+    if (!chatId) return this.context.userFeedback({ type: 'error', text: tx('create_chat_error_desktop') })
+    this.context.changeScreen('ChatView', { chatId })
   }
 
   render () {
@@ -83,7 +84,7 @@ class CreateChat extends React.Component {
         <NavbarWrapper>
           <Navbar fixedToTop>
             <NavbarGroup align={Alignment.LEFT}>
-              <Button className={Classes.MINIMAL} icon='undo' onClick={this.props.changeScreen} />
+              <Button className={Classes.MINIMAL} icon='undo' onClick={this.context.changeScreen} />
               <NavbarHeading>{tx('menu_new_chat')}</NavbarHeading>
             </NavbarGroup>
           </Navbar>
@@ -103,5 +104,7 @@ class CreateChat extends React.Component {
     )
   }
 }
+
+CreateChat.contextType = ScreenContext
 
 module.exports = CreateChat

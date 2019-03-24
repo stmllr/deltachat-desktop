@@ -166,8 +166,7 @@ class ChatList extends React.Component {
         <ChatListContextMenu
           ref={this.contextMenu}
           showArchivedChats={showArchivedChats}
-          openDialog={this.props.openDialog}
-          changeScreen={this.props.changeScreen} />
+        />
       </div>
     )
   }

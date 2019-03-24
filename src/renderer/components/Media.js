@@ -4,6 +4,7 @@ const { ipcRenderer } = require('electron')
 const {
   Button, ButtonGroup
 } = require('@blueprintjs/core')
+const ScreenContext = require('../contexts/ScreenContext')
 
 const styled = require('styled-components').default
 
@@ -104,7 +105,7 @@ class Media extends React.Component {
   }
 
   onClickMedia (message) {
-    this.props.openDialog('RenderMedia', { message })
+    this.context.openDialog('RenderMedia', { message })
   }
 
   render () {
@@ -141,5 +142,7 @@ class Media extends React.Component {
     </Wrapper>
   }
 }
+
+Media.contextType = ScreenContext
 
 module.exports = Media

@@ -1,6 +1,7 @@
 const React = require('react')
 const { ipcRenderer } = require('electron')
 const styled = require('styled-components').default
+const ScreenContext = require('../contexts/ScreenContext')
 
 const Media = require('./Media')
 const Menu = require('./Menu')
@@ -83,7 +84,7 @@ class SplittedChatListAndView extends React.Component {
   }
 
   onDeadDropClick (deadDrop) {
-    this.props.openDialog('DeadDrop', { deadDrop })
+    this.context.openDialog('DeadDrop', { deadDrop })
   }
 
   handleSearchChange (event) {
@@ -97,12 +98,14 @@ class SplittedChatListAndView extends React.Component {
     const tx = window.translate
     const profileImage = selectedChat && selectedChat.profileImage
 
-    const menu = <Menu
-      openDialog={this.props.openDialog}
-      changeScreen={this.props.changeScreen}
-      selectedChat={selectedChat}
-      showArchivedChats={showArchivedChats}
-    />
+    const menu = <ScreenContext.Consumer>{(screenContext) =>
+      <Menu
+        openDialog={screenContext.openDialog}
+        changeScreen={screenContext.changeScreen}
+        selectedChat={selectedChat}
+        showArchivedChats={showArchivedChats}
+      />}
+    </ScreenContext.Consumer>
 
     return (
       <div>
@@ -140,22 +143,15 @@ class SplittedChatListAndView extends React.Component {
             onChatClick={this.onChatClick}
             showArchivedChats={deltachat.showArchivedChats}
             selectedChatId={selectedChat ? selectedChat.id : null}
-            openDialog={this.props.openDialog}
-            changeScreen={this.props.changeScreen}
           />
           {
             selectedChat
               ? this.state.media ? <Media
-                openDialog={this.props.openDialog}
                 chat={selectedChat}
               />
                 : (<ChatView
                   ref={this.chatView}
-                  screenProps={this.props.screenProps}
                   onDeadDropClick={this.onDeadDropClick}
-                  userFeedback={this.props.userFeedback}
-                  changeScreen={this.props.changeScreen}
-                  openDialog={this.props.openDialog}
                   chat={selectedChat}
                   deltachat={this.props.deltachat} />)
               : (
@@ -171,5 +167,7 @@ class SplittedChatListAndView extends React.Component {
     )
   }
 }
+
+SplittedChatListAndView.contextType = ScreenContext
 
 module.exports = SplittedChatListAndView

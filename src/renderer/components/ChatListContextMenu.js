@@ -1,6 +1,8 @@
 const React = require('react')
 const { ipcRenderer } = require('electron')
 
+const ScreenContext = require('../contexts/ScreenContext')
+
 const { ContextMenu, MenuItem } = require('react-contextmenu')
 const confirmation = require('./dialogs/confirmationDialog')
 const { Icon } = require('@blueprintjs/core')
@@ -87,10 +89,10 @@ class ChatListContextMenu extends React.Component {
     })
   }
   onEncrInfo () {
-    this.props.openDialog('EncrInfo', { chat: this.state.chat })
+    this.context.openDialog('EncrInfo', { chat: this.state.chat })
   }
   onEditGroup () {
-    this.props.changeScreen('EditGroup', { chat: this.state.chat })
+    this.context.changeScreen('EditGroup', { chat: this.state.chat })
   }
   onLeaveGroup () {
     const selectedChat = this.state.chat
@@ -115,5 +117,6 @@ class ChatListContextMenu extends React.Component {
     })
   }
 }
+ChatListContextMenu.contextType = ScreenContext
 
 module.exports = ChatListContextMenu
