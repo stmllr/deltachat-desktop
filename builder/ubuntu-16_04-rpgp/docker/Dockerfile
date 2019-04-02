@@ -4,7 +4,9 @@ ENV BUILDER_NAME="ubuntu-16_04-rpgp"
 
 # Update system
 RUN true \
-    && apt update \
+    && apt update
+
+RUN true \
     && apt -y upgrade
 
 # Install nvm & node
