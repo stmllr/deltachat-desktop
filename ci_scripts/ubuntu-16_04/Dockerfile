@@ -1,12 +1,14 @@
 FROM ubuntu:xenial
 
 RUN true \
-    && echo $DOCKERTAG 
+    && echo $DOCKERTAG
+
+COPY ./sources.list /etc/apt/sources.list
 
 # Update system
 RUN true \
-    && apt update 
-#    && apt -y upgrade
+    && apt update
+    && apt -y upgrade
 
 # Install nvm & node
 RUN true \
