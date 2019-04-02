@@ -2,6 +2,8 @@ FROM ubuntu:16.04
 
 ENV BUILDER_NAME="ubuntu-16_04-rpgp"
 
+COPY ./sources.list /etc/apt/sources.list
+
 # Update system
 RUN true \
     && apt update \
