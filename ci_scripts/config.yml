@@ -12,12 +12,12 @@ jobs:
       - run:
           name: Build docker
           command: |
-            sh builder/ubuntu-16_04-rpgp/build-image.sh
+            sh ci_scripts/build-image.sh ci_scripts/ubuntu-16_04-rpgp
 
       - run:
           name: Build package
           command: |
-            sh builder/ubuntu-16_04-rpgp/build-package.sh
+            sh ci_scripts/build-package.sh ci_scripts/ubuntu-16_04-rpgp
 
       - run:
           name: Show build artifacts
