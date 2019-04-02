@@ -28,4 +28,4 @@ workflows:
   version: 2
   ubuntu-build-pipe:
     jobs:
-      - ubuntu-16_04-rpgp
+      - build
