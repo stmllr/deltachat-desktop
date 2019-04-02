@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: stmllr/docker-client
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Docker build
+          command: |
+            sh builder/ubuntu-16_04-rpgp/build-image.sh
+
+      - run:
+          name: Package build
+          command: |
+            sh builder/ubuntu-16_04-rpgp/build-package.sh
+
+      - run:
+          name: Show build artifacts
+          command: |
+            ls -lR build/
+
+workflows:
+  version: 2
+  ubuntu-build-pipe:
+    jobs:
+      - ubuntu-16_04-rpgp
