@@ -7,7 +7,7 @@ COPY ./sources.list /etc/apt/sources.list
 
 # Update system
 RUN true \
-    && apt update
+    && apt update \
     && apt -y upgrade
 
 # Install nvm & node
